@@ -6,13 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.shottracker_ai.R
+import com.example.shottracker_ai.databinding.HomeFragmentBinding
 import com.example.shottracker_ai.databinding.ProfileFragmentBinding
+import com.example.shottracker_ai.ui.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+
+    private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
