@@ -2,8 +2,10 @@ package com.example.shottracker_ai.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.annotation.WorkerThread
 import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,18 +15,12 @@ import javax.inject.Singleton
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-interface PreferenceStorage {
-    val userName: String?
-    val userImagePath: String?
-}
-
 @FlowPreview
 @ExperimentalCoroutinesApi
 @Singleton
 class SharedPreferenceStorage @Inject constructor(
     @ApplicationContext context: Context
-) : PreferenceStorage {
-
+) {
     private val prefs: SharedPreferences by lazy { // Lazy to prevent IO access to main thread.
         context.applicationContext.getSharedPreferences(
             PREFS_NAME, Context.MODE_PRIVATE
@@ -32,14 +28,14 @@ class SharedPreferenceStorage @Inject constructor(
     }
 
     val userNameLiveData: LiveData<String?> = prefs.asStringLiveData(PREFS_USER_NAME, null)
-    val userImagePathLiveData: LiveData<String?> = prefs.asStringLiveData(PREFS_USER_IMAGE_PATH, null)
+    val userImagePathLiveData: LiveData<Uri?> = prefs.asUriLiveData(PREFS_USER_IMAGE_PATH, null)
 
-    override var userName: String?
+    var userName: String?
             by StringPreference(prefs, PREFS_USER_NAME)
 
 
-    override var userImagePath: String?
-            by StringPreference(prefs, PREFS_USER_IMAGE_PATH)
+    var userImagePath: Uri?
+            by UriPreference(prefs, PREFS_USER_IMAGE_PATH)
 
     fun clearAll() = prefs.edit().clear().apply()
 
@@ -63,5 +59,20 @@ class StringPreference(
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) {
         preferences.edit { putString(key, value) }
+    }
+}
+
+class UriPreference(
+    private val preferences: SharedPreferences,
+    private val key: String,
+) : ReadWriteProperty<Any, Uri?> {
+
+    @WorkerThread
+    override fun getValue(thisRef: Any, property: KProperty<*>): Uri? {
+        return preferences.getString(key, null)?.toUri()
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: Uri?) {
+        preferences.edit { putString(key, value.toString()) }
     }
 }

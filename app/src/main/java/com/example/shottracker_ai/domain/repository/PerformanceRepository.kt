@@ -1,4 +1,4 @@
-package com.example.shottracker_ai.repository
+package com.example.shottracker_ai.domain.repository
 
 import com.example.shottracker_ai.data.performance.Performance
 import com.example.shottracker_ai.data.performance.PerformancesDao

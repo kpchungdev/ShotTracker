@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShotTracker.TextAppearance" parent="">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Primary">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Secondary">
+        <item name="android:fontFamily">@font/josefinsans</item>
+        <item name="fontFamily">@font/josefinsans</item>
+    </style>
+
+
+    <style name="ShotTracker.TextAppearance.Primary.Thin">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Primary.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Primary.Regular">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Primary.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Primary.Black">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="fontFamily">@font/roboto_black</item>
+    </style>
+
+
+    <style name="ShotTracker.TextAppearance.Secondary.Thin">
+        <item name="android:fontFamily">@font/josefinsans_thin</item>
+        <item name="fontFamily">@font/josefinsans_thin</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Secondary.Medium">
+        <item name="android:fontFamily">@font/josefinsans_medium</item>
+        <item name="fontFamily">@font/josefinsans_medium</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Secondary.Regular">
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+        <item name="fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Secondary.Semibold">
+        <item name="android:fontFamily">@font/josefinsans_semibold</item>
+        <item name="fontFamily">@font/josefinsans_semibold</item>
+    </style>
+
+    <style name="ShotTracker.TextAppearance.Secondary.Bold">
+        <item name="android:fontFamily">@font/josefinsans_bold</item>
+        <item name="fontFamily">@font/josefinsans_bold</item>
+    </style>
+
+
+    <style name="ShotTracker.Button" parent="ShotTracker.TextAppearance.Primary.Medium" >
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/rectangle_rounded_27</item>
+    </style>
+
+
+</resources>

@@ -1,5 +1,6 @@
 package com.example.shottracker_ai.di
 
+import com.example.shottracker_ai.domain.service.FileManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +21,10 @@ class AppModule {
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
 
+
+    @Provides
+    fun provideFileSaver():FileManager {
+        return FileManager()
+    }
 
 }

@@ -1,7 +1,8 @@
 package com.example.shottracker_ai.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.*
-import com.example.shottracker_ai.repository.UserRepository
+import com.example.shottracker_ai.domain.repository.UserRepository
 import com.example.shottracker_ai.ui.BaseViewModel
 import com.example.shottracker_ai.utilities.combineWithLatest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,20 +18,22 @@ class ProfileViewModel @Inject internal constructor(private val userRepository: 
         }
     }
 
-    val image = MutableLiveData<String>().also { result ->
+    val profileImage = MutableLiveData<Uri>().also { result ->
         launchBackground {
-            userRepository.getProfile().image
+            result.postValue(userRepository.getProfile().image)
         }
     }
 
-    val defaultImageChoices = MutableLiveData<List<String>>().also { result ->
+    val defaultImageChoices: LiveData<List<Uri>> = MutableLiveData<List<Uri>>().also { result ->
         launchBackground {
-            userRepository.getDefaultProfileImageChoices()
+            result.postValue(userRepository.getDefaultProfileImageChoices())
         }
     }
+
+    val canSaveProfile = name.map { it.isNotBlank() }
 
     val saveProfile: LiveData<Unit>
-        get() = name.combineWithLatest(image) { name, image ->
+        get() = name.combineWithLatest(profileImage) { name, image ->
             MutableLiveData<Unit>().also { result ->
                 launchBackground {
                     result.postValue(userRepository.saveProfile(name, image))
@@ -38,8 +41,8 @@ class ProfileViewModel @Inject internal constructor(private val userRepository: 
             }
         }.switchMap { it }
 
-    fun changeImage(imagePath: String) {
-        image.value = imagePath
+    fun changeProfileImage(imagePath: Uri) {
+        profileImage.value = imagePath
     }
 
 }

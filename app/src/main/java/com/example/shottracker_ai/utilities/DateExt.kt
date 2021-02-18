@@ -8,4 +8,4 @@ val utcZoneId = ZoneId.of("UTC")
 
 fun ZonedDateTime.toLocalZonedDateTime() = this.withZoneSameInstant(ZoneId.systemDefault())
 
-fun LocalDateTime.toUTCZonedDateTime() = this.atZone(ZoneId.of("UTC"))
+fun LocalDateTime.toUTCZonedDateTime() = this.atZone(utcZoneId)

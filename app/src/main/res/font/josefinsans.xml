@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="200"
+        app:font="@font/josefinsans_thin" />
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/josefinsans_regular" />
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="500"
+        app:font="@font/josefinsans_medium" />
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="600"
+        app:font="@font/josefinsans_semibold" />
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="700"
+        app:font="@font/josefinsans_bold" />
+
+</font-family>

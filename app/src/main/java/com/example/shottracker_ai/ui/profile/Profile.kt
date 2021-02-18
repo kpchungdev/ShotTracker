@@ -1,16 +1,20 @@
 package com.example.shottracker_ai.ui.profile
 
-data class Profile(val name: String?,
-                   val image: String) {
+import android.net.Uri
+
+data class Profile(
+    val name: String?,
+    val image: Uri
+) {
 
     companion object {
         const val defaultProfileImageFromAssets = "happy.png"
 
         val defaultProfileImageChoicesFromAssets = listOf(
-                "happy.png",
-                "neutral.png",
-                "smile.png",
-                "smirk.png"
+            "happy.png",
+            "smile.png",
+            "smirk.png",
+            "neutral.png",
         )
 
     }
