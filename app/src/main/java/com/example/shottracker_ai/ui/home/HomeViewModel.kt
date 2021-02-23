@@ -2,6 +2,8 @@ package com.example.shottracker_ai.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import com.example.shottracker_ai.domain.repository.PerformanceRepository
 import com.example.shottracker_ai.domain.repository.UserRepository
 import com.example.shottracker_ai.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject internal constructor(
-        userRepository: UserRepository
+        userRepository: UserRepository,
+        performanceRepository: PerformanceRepository,
 ) : BaseViewModel() {
     val launchDestination: LiveData<LaunchDestination> = MutableLiveData<LaunchDestination>().also { result ->
         launchBackground {
@@ -19,6 +22,9 @@ class HomeViewModel @Inject internal constructor(
             result.postValue(destination)
         }
     }
+
+    private val performances = performanceRepository.getPerformances().asLiveData()
+
 }
 
 enum class LaunchDestination {

@@ -7,4 +7,13 @@
     <string name="what_is_your_name">What is your name?</string>
     <string name="save">Save</string>
 
+    <string name="average_field_goal">Average Field Goal</string>
+    <string name="average_made_shots">Average Made Shots</string>
+    <string name="average_minutes">Average Minutes</string>
+    <string name="percent">%</string>
+    <string name="shots">Shots</string>
+    <string name="minutes">Minutes</string>
+    <string name="last_average">Last Average</string>
+    <string name="play">Play</string>
+
 </resources>

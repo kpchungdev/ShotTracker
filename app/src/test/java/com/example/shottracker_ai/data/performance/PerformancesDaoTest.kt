@@ -1,6 +1,7 @@
 package com.example.shottracker_ai.data.performance
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.asLiveData
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +10,7 @@ import com.example.shottracker_ai.MainCoroutineRule
 import com.example.shottracker_ai.data.AppDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.*
@@ -71,6 +73,40 @@ class PerformancesDaoTest {
 
         val list: List<Performance> = database.performanceDao().getPerformances().first()
         Assert.assertEquals(list.size, 1)
+    }
+
+    @Test
+    fun testOrder() = runBlocking {
+        val performance1 = Performance(
+                createdTime = LocalDateTime.now().plusDays(3),
+                shotsMade = 1,
+                shotAttempts = 10,
+                duration = 10
+        )
+
+        val performance2 = Performance(
+                createdTime = LocalDateTime.now().plusDays(1),
+                shotsMade = 2,
+                shotAttempts = 10,
+                duration = 10
+        )
+
+        val performance3 = Performance(
+                createdTime = LocalDateTime.now().plusDays(2),
+                shotsMade = 3,
+                shotAttempts = 10,
+                duration = 10
+        )
+
+        database.performanceDao().insertPerformance(performance1)
+        database.performanceDao().insertPerformance(performance2)
+        database.performanceDao().insertPerformance(performance3)
+
+        val performances = database.performanceDao().getPerformances().first()
+
+        Assert.assertEquals(performance2.shotsMade, performances[0].shotsMade)
+        Assert.assertEquals(performance3.shotsMade, performances[1].shotsMade)
+        Assert.assertEquals(performance1.shotsMade, performances[2].shotsMade)
     }
 
 }

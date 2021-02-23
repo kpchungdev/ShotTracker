@@ -1,6 +1,7 @@
 package com.example.shottracker_ai.di
 
 import com.example.shottracker_ai.domain.service.FileManager
+import com.example.shottracker_ai.domain.service.StatAnalyzer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +24,13 @@ class AppModule {
 
 
     @Provides
-    fun provideFileSaver():FileManager {
+    fun provideFileSaver(): FileManager {
         return FileManager()
+    }
+
+    @Provides
+    fun provideStatAnalyzer(): StatAnalyzer {
+        return StatAnalyzer()
     }
 
 }
