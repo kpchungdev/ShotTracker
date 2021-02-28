@@ -20,21 +20,25 @@ class StatAnalyzerTest {
             createdTime = LocalDateTime.now(),
             shotsMade = 1,
             shotAttempts = 10,
-            duration = 10
+            duration = 10,
+            totalFieldGoal = 0.1
     )
 
     private val performance2 = Performance(
             createdTime = LocalDateTime.now().plusDays(1),
             shotsMade = 2,
             shotAttempts = 10,
-            duration = 10
+            duration = 10,
+            totalFieldGoal = 0.15
+
     )
 
     private val performance3 = Performance(
             createdTime = LocalDateTime.now().plusDays(2),
             shotsMade = 3,
             shotAttempts = 10,
-            duration = 10
+            duration = 10,
+            totalFieldGoal = 0.2
     )
 
     val performances = listOf(performance1, performance2, performance3)

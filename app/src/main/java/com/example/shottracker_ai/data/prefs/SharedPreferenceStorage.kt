@@ -37,12 +37,20 @@ class SharedPreferenceStorage @Inject constructor(
     var userImagePath: Uri?
             by UriPreference(prefs, PREFS_USER_IMAGE_PATH)
 
+    var totalMadeShots: Int
+            by IntPreference(prefs, PREFS_TOTAL_MADE_SHOTS)
+
+    var totalShotAttempts: Int
+            by IntPreference(prefs, PREFS_TOTAL_SHOT_ATTEMPTS)
+
     fun clearAll() = prefs.edit().clear().apply()
 
     companion object {
         const val PREFS_NAME = "shotTracker"
         const val PREFS_USER_NAME = "user_name"
         const val PREFS_USER_IMAGE_PATH = "user_image_path"
+        const val PREFS_TOTAL_MADE_SHOTS = "total_made_shots"
+        const val PREFS_TOTAL_SHOT_ATTEMPTS = "total_shot_attempts"
     }
 
 }
@@ -59,6 +67,21 @@ class StringPreference(
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) {
         preferences.edit { putString(key, value) }
+    }
+}
+
+class IntPreference(
+        private val preferences: SharedPreferences,
+        private val key: String,
+) : ReadWriteProperty<Any, Int> {
+
+    @WorkerThread
+    override fun getValue(thisRef: Any, property: KProperty<*>): Int {
+        return preferences.getInt(key, 0)
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: Int) {
+        preferences.edit { putInt(key, value) }
     }
 }
 

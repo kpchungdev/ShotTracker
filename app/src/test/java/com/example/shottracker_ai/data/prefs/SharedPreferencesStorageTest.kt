@@ -36,4 +36,13 @@ class SharedPreferencesStorageTest {
         sharedPreferencesStorage.clearAll()
         assertEquals(sharedPreferencesStorage.userName, null)
     }
+
+    @Test
+    fun testDivide() = runBlocking {
+        sharedPreferencesStorage.totalMadeShots = 1
+        sharedPreferencesStorage.totalShotAttempts = 10
+
+        val totalFieldGoal = sharedPreferencesStorage.totalMadeShots / sharedPreferencesStorage.totalShotAttempts.toDouble()
+        assertEquals(totalFieldGoal, .10, 0.0)
+    }
 }

@@ -38,8 +38,8 @@ class PerformancesDaoTest {
         // using an in-memory database because the information stored here disappears when the
         // process is killed
         database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java
+                ApplicationProvider.getApplicationContext(),
+                AppDatabase::class.java
         ).allowMainThreadQueries().build()
     }
 
@@ -56,16 +56,17 @@ class PerformancesDaoTest {
     fun insertPerformance() = runBlockingTest {
         val createdLocalDateTime = LocalDateTime.now()
         val performance = Performance(
-            createdTime = createdLocalDateTime,
-            shotsMade = 10,
-            shotAttempts = 30,
-            duration = 50
+                createdTime = createdLocalDateTime,
+                shotsMade = 10,
+                shotAttempts = 30,
+                duration = 50,
+                totalFieldGoal = 10.toDouble() / 30.toDouble()
         )
         database.performanceDao().insertPerformance(performance)
 
         val loaded = database.performanceDao().getPerformance(performance.localCreatedDate).first()
 
-        Assert.assertThat<Performance>(loaded as Performance, notNullValue())
+        Assert.assertThat(loaded, notNullValue())
         Assert.assertEquals(loaded.localCreatedDate.toEpochSecond(), performance.localCreatedDate.toEpochSecond())
         Assert.assertEquals(loaded.shotsMade, performance.shotsMade)
         Assert.assertEquals(loaded.shotAttempts, performance.shotAttempts)
@@ -81,21 +82,24 @@ class PerformancesDaoTest {
                 createdTime = LocalDateTime.now().plusDays(3),
                 shotsMade = 1,
                 shotAttempts = 10,
-                duration = 10
+                duration = 10,
+                totalFieldGoal = 1.toDouble() / 10.toDouble()
         )
 
         val performance2 = Performance(
                 createdTime = LocalDateTime.now().plusDays(1),
                 shotsMade = 2,
                 shotAttempts = 10,
-                duration = 10
+                duration = 10,
+                totalFieldGoal = 3.toDouble() / 20.toDouble()
         )
 
         val performance3 = Performance(
                 createdTime = LocalDateTime.now().plusDays(2),
                 shotsMade = 3,
                 shotAttempts = 10,
-                duration = 10
+                duration = 10,
+                totalFieldGoal = 6.toDouble() / 30.toDouble()
         )
 
         database.performanceDao().insertPerformance(performance1)
