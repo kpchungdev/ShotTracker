@@ -12,14 +12,14 @@ data class Performance(
         @ColumnInfo(name = "shots_made") val shotsMade: Int,
         @ColumnInfo(name = "shot_attempts") val shotAttempts: Int,
         @ColumnInfo(name = "duration_minutes") val duration: Int,
-        @ColumnInfo(name = "total_field_goal") val totalFieldGoal: Double,
+        @ColumnInfo(name = "total_field_goal") val totalFieldGoal: Float,
 ) {
 
     constructor(createdTime: LocalDateTime,
                 shotsMade: Int,
                 shotAttempts: Int,
                 duration: Int,
-                totalFieldGoal: Double) : this(
+                totalFieldGoal: Float) : this(
             utcCreatedDate = createdTime.toUTCZonedDateTime(),
             shotsMade = shotsMade,
             shotAttempts = shotAttempts,

@@ -3,7 +3,7 @@ package com.example.shottracker_ai.domain.service
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.shottracker_ai.data.performance.Performance
-import com.example.shottracker_ai.ui.home.ui.StatType
+import com.example.shottracker_ai.ui.home.stats.StatType
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

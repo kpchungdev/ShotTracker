@@ -17,7 +17,7 @@ class PerformanceRepository @Inject constructor(
         sharedPreferenceStorage.totalMadeShots = sharedPreferenceStorage.totalMadeShots + shotsMade
         sharedPreferenceStorage.totalShotAttempts = sharedPreferenceStorage.totalShotAttempts + shotAttempts
 
-        val totalFieldGoal = (sharedPreferenceStorage.totalMadeShots / sharedPreferenceStorage.totalShotAttempts.toDouble())
+        val totalFieldGoal = (sharedPreferenceStorage.totalMadeShots / sharedPreferenceStorage.totalShotAttempts.toFloat())
         return Performance(
                 createdTime = LocalDateTime.now(),
                 shotsMade = shotsMade,

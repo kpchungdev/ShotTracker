@@ -1,7 +1,7 @@
 package com.example.shottracker_ai.domain.service
 
 import com.example.shottracker_ai.data.performance.Performance
-import com.example.shottracker_ai.ui.home.ui.StatType
+import com.example.shottracker_ai.ui.home.stats.StatType
 
 class StatAnalyzer {
 

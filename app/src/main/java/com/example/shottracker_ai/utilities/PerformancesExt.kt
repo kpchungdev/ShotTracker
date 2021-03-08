@@ -1,7 +1,7 @@
 package com.example.shottracker_ai.utilities
 
 import com.example.shottracker_ai.data.performance.Performance
-import com.example.shottracker_ai.ui.home.ui.StatRange
+import com.example.shottracker_ai.ui.home.stats.StatRange
 
 fun List<Performance>.toRange(statRange: StatRange)
     = when (statRange) {

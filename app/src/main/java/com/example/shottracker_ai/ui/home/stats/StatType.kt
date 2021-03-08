@@ -1,4 +1,4 @@
-package com.example.shottracker_ai.ui.home.ui
+package com.example.shottracker_ai.ui.home.stats
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -19,7 +19,7 @@ enum class StatType {
         @StringRes
         get() = when (this) {
             AVERAGE_FIELD_GOAL -> R.string.average_field_goal
-            AVERAGE_MADE_SHOTS -> R.string.average_made_shots
+            AVERAGE_MADE_SHOTS -> R.string.average_makes
             AVERAGE_MINUTES -> R.string.average_minutes
         }
 
