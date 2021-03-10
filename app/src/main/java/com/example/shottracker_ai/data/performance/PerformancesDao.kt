@@ -16,4 +16,8 @@ interface PerformancesDao {
 
     @Insert
     suspend fun insertPerformance(performance: Performance): Long
+
+    @Query("DELETE FROM performances")
+    suspend fun deletePerformances()
+
 }

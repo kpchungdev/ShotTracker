@@ -1,7 +1,22 @@
 package com.example.shottracker_ai.utilities
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
+
+// https://medium.com/android-news/inline-noinline-crossinline-what-do-they-mean-b13f48e113c2
+
+inline fun <T : Any> LifecycleOwner.observeOnce(liveData: LiveData<out T?>, crossinline observer: (T) -> Unit) {
+    liveData.observe(this, object : Observer<T?> {
+        override fun onChanged(p: T?) {
+            p?.let {
+                observer(it)
+                liveData.removeObserver(this)
+            }
+        }
+    })
+}
 
 fun <T, K, R> LiveData<T>.combineWith(
         liveData: LiveData<K>,

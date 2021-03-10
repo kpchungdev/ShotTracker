@@ -13,13 +13,13 @@ class PerformanceRepository @Inject constructor(
 
     fun getPerformances() = performancesDao.getPerformances()
 
-    suspend fun savePerformance(shotsMade: Int, shotAttempts: Int, duration: Int): Performance {
+    suspend fun savePerformance(shotsMade: Int, shotAttempts: Int, duration: Int, createTime: LocalDateTime?): Performance {
         sharedPreferenceStorage.totalMadeShots = sharedPreferenceStorage.totalMadeShots + shotsMade
         sharedPreferenceStorage.totalShotAttempts = sharedPreferenceStorage.totalShotAttempts + shotAttempts
 
         val totalFieldGoal = (sharedPreferenceStorage.totalMadeShots / sharedPreferenceStorage.totalShotAttempts.toFloat())
         return Performance(
-                createdTime = LocalDateTime.now(),
+                createdTime = createTime ?: LocalDateTime.now(),
                 shotsMade = shotsMade,
                 shotAttempts = shotAttempts,
                 duration = duration,
@@ -27,6 +27,13 @@ class PerformanceRepository @Inject constructor(
         ).also { performance ->
             performancesDao.insertPerformance(performance)
         }
+    }
+
+    suspend fun clearPerformances() {
+        sharedPreferenceStorage.totalMadeShots = 0
+        sharedPreferenceStorage.totalShotAttempts = 0
+
+        performancesDao.deletePerformances()
     }
 
 }

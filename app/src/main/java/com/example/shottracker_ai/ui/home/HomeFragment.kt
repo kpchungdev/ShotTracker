@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.shottracker_ai.databinding.HomeFragmentBinding
+import com.example.shottracker_ai.ui.home.ranges.EventHandler
+import com.example.shottracker_ai.ui.home.ranges.setUp
+import com.example.shottracker_ai.ui.home.stats.StatRange
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +27,22 @@ class HomeFragment : Fragment() {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+
+        binding.ranges.setUp(
+                fragment = this,
+                eventHandler = object : EventHandler {
+                    override fun changeRange(range: StatRange) {
+                        viewModel.changeRange(range)
+                    }
+                },
+                section = viewModel.rangeSection
+        )
+
+        binding.buttonPlay.setOnClickListener {
+            viewModel.clearPerformances()
+        }
+
         return binding.root
     }
 

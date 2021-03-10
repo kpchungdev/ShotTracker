@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.shottracker_ai.ui.home.stats.StatRange"/>
+
+        <variable
+            name="eventHandler"
+            type="com.example.shottracker_ai.ui.home.ranges.EventHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutChartRanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/selector"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/graph_selector"
+            app:layout_constraintStart_toStartOf="@+id/labelAll"
+            app:layout_constraintTop_toTopOf="@+id/labelAll"
+            app:layout_constraintEnd_toEndOf="@+id/labelAll"
+            app:layout_constraintBottom_toBottomOf="@+id/labelAll"/>
+
+        <TextView
+            android:id="@+id/labelAll"
+            style="@style/ShotTracker.TextAppearance.Primary.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:onClick="@{() -> eventHandler.changeRange(StatRange.ALL)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/layoutWeek"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:onClick="@{() -> eventHandler.changeRange(StatRange.WEEK)}"
+            app:layout_constraintStart_toEndOf="@+id/labelAll"
+            app:layout_constraintEnd_toStartOf="@+id/layoutMonthly"
+            app:layout_constraintTop_toTopOf="@+id/labelAll"
+            app:layout_constraintBottom_toBottomOf="@+id/labelAll">
+
+            <TextView
+                android:id="@+id/labelWeek"
+                style="@style/ShotTracker.TextAppearance.Primary.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seven"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iconWeek"
+                android:layout_width="9dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_finish"
+                android:layout_marginStart="2dp"
+                app:layout_constraintTop_toTopOf="@+id/labelWeek"
+                app:layout_constraintBottom_toBottomOf="@+id/labelWeek"
+                app:layout_constraintStart_toEndOf="@+id/labelWeek"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMonthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:onClick="@{() -> eventHandler.changeRange(StatRange.MONTH)}"
+            app:layout_constraintStart_toEndOf="@+id/layoutWeek"
+            app:layout_constraintEnd_toStartOf="@+id/layoutYearly"
+            app:layout_constraintTop_toTopOf="@+id/labelAll"
+            app:layout_constraintBottom_toBottomOf="@+id/labelAll">
+
+            <TextView
+                android:id="@+id/labelMonthly"
+                style="@style/ShotTracker.TextAppearance.Primary.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/thirty"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iconMonthly"
+                android:layout_width="9dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_finish"
+                android:layout_marginStart="2dp"
+                app:layout_constraintTop_toTopOf="@+id/labelMonthly"
+                app:layout_constraintBottom_toBottomOf="@+id/labelMonthly"
+                app:layout_constraintStart_toEndOf="@+id/labelMonthly"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutYearly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:onClick="@{() -> eventHandler.changeRange(StatRange.YEAR)}"
+            app:layout_constraintStart_toEndOf="@+id/layoutMonthly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/labelAll"
+            app:layout_constraintBottom_toBottomOf="@+id/labelAll">
+
+            <TextView
+                android:id="@+id/labelYear"
+                style="@style/ShotTracker.TextAppearance.Primary.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/three_hundred_sixty_five"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iconYearly"
+                android:layout_width="9dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_finish"
+                android:layout_marginStart="2dp"
+                app:layout_constraintTop_toTopOf="@+id/labelYear"
+                app:layout_constraintBottom_toBottomOf="@+id/labelYear"
+                app:layout_constraintStart_toEndOf="@+id/labelYear"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

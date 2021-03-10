@@ -1,9 +1,6 @@
 package com.example.shottracker_ai.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
+import androidx.lifecycle.*
 import com.example.shottracker_ai.data.performance.Performance
 import com.example.shottracker_ai.data.prefs.SharedPreferenceStorage
 import com.example.shottracker_ai.domain.repository.PerformanceRepository
@@ -11,6 +8,7 @@ import com.example.shottracker_ai.domain.repository.UserRepository
 import com.example.shottracker_ai.domain.service.StatAnalyzer
 import com.example.shottracker_ai.ui.BaseViewModel
 import com.example.shottracker_ai.ui.home.performance.AverageFieldGoalChartSection
+import com.example.shottracker_ai.ui.home.ranges.RangeSection
 import com.example.shottracker_ai.ui.home.stats.AverageStatSection
 import com.example.shottracker_ai.ui.home.stats.StatRange
 import com.example.shottracker_ai.ui.home.stats.StatType
@@ -18,15 +16,18 @@ import com.example.shottracker_ai.utilities.combineWithLatest
 import com.example.shottracker_ai.utilities.format
 import com.example.shottracker_ai.utilities.toRange
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class HomeViewModel @Inject internal constructor(
         userRepository: UserRepository,
-        performanceRepository: PerformanceRepository,
         sharedPreferenceStorage: SharedPreferenceStorage,
+        private val performanceRepository: PerformanceRepository,
         private val statAnalyzer: StatAnalyzer,
 ) : BaseViewModel() {
     val launchDestination: LiveData<LaunchDestination> = MutableLiveData<LaunchDestination>().also { result ->
@@ -108,11 +109,36 @@ class HomeViewModel @Inject internal constructor(
     val averageFieldGoalChartSection = targetPerformances.map { AverageFieldGoalChartSection(it) }
 
     //    Ranges
-    private val amountOfPerformances = performances.map { it.size }
-    private val enableAll = amountOfPerformances.map { it >= 0 }
-    private val enableWeekly = amountOfPerformances.map { it >= 7 }
-    private val enableMonthly = amountOfPerformances.map { it >= 30 }
-    private val enableYear = amountOfPerformances.map { it >= 365 }
+    val rangeSection = performances.combineWithLatest(range) { performances, range ->
+        RangeSection(
+                selectedRange = range,
+                performances = performances
+        )
+    }
+
+    init {
+        launchBackground {
+            for (day in 1..45) {
+                val shotsMade = Random.nextInt(1, 12)
+                val shotAttempts = shotsMade + Random.nextInt(1, 8)
+
+                performanceRepository.savePerformance(
+                        shotsMade = shotsMade,
+                        shotAttempts = shotAttempts,
+                        duration = Random.nextInt(30, 50),
+                        createTime = LocalDateTime.now().plusDays(day.toLong())
+                )
+            }
+
+            Timber.d("size: ${performanceRepository.getPerformances().first().size}")
+        }
+    }
+
+    fun clearPerformances() {
+        launchBackground {
+            performanceRepository.clearPerformances()
+        }
+    }
 
 }
 

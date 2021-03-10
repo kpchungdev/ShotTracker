@@ -51,7 +51,7 @@ object ImageViewBindingAdapters {
     fun setForegroundTint(imageView: ImageView, @ColorRes tintColorRes: Int?) {
         with(imageView) {
             if (tintColorRes != null && tintColorRes != 0) {
-//                imageTintList = ColorStateList.valueOf(context.getColor(tintColorRes))
+                imageTintList = ColorStateList.valueOf(context.getColor(tintColorRes))
             } else {
                 imageTintList = null
             }

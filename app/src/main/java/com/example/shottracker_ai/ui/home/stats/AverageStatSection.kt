@@ -30,13 +30,13 @@ data class AverageStatSection(val iconRes: Int,
                 else -> "${decimalFormat.format(targetAverage)}"
             },
             tintComparisonRes = when {
-                comparisonDiff == 0.toDouble() -> R.color.gray_500
+                comparisonDiff == 0.toDouble() -> R.color.gray_300
                 comparisonDiff > 0 -> R.color.green_500
                 else -> R.color.red_500
             },
             showComparison = showComparison,
             comparison = when (statType) {
-                StatType.AVERAGE_FIELD_GOAL -> "${decimalFormat.format(comparisonDiff)}${getString(statType.unitRes)}"
+                StatType.AVERAGE_FIELD_GOAL -> "${decimalFormat.format(comparisonDiff * 100)}${getString(statType.unitRes)}"
                 else -> "${decimalFormat.format(comparisonDiff)} ${getString(statType.unitRes)}"
             },
             comparisonRes = when {

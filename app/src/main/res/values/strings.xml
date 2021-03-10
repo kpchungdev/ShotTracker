@@ -17,4 +17,9 @@
     <string name="total_average">Total Average</string>
     <string name="play">Play</string>
 
+    <string name="all">All</string>
+    <string name="seven">7</string>
+    <string name="thirty">30</string>
+    <string name="three_hundred_sixty_five">365</string>
+
 </resources>

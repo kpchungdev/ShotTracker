@@ -3,7 +3,7 @@ package com.example.shottracker_ai.ui.home.performance
 import com.example.shottracker_ai.data.performance.Performance
 
 data class AverageFieldGoalChartSection(
-        val performances: List<Performance>,
+        val performances: List<Performance>
 ) {
 
     val hasPerformances = performances.isNotEmpty()

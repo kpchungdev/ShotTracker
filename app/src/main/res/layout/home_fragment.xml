@@ -93,6 +93,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/averageFieldGoal"/>
 
 
+        <include
+            android:id="@+id/ranges"
+            layout="@layout/section_range"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPlay"/>
+
         <TextView
             android:id="@+id/buttonPlay"
             style="@style/ShotTracker.Button"
