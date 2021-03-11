@@ -92,6 +92,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/averageFieldGoal"/>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="25dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/averageFieldGoal"
+            app:layout_constraintBottom_toTopOf="@+id/ranges">
+
+            <include
+                android:id="@+id/fieldGoalChart"
+                layout="@layout/section_field_goal_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
+
 
         <include
             android:id="@+id/ranges"

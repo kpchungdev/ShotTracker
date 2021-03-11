@@ -44,7 +44,7 @@ data class AverageStatSection(val iconRes: Int,
                 else -> R.drawable.ic_arrow_up
             },
             comparisonLabel = when (comparisonRange) {
-                StatRange.DAY -> getString(R.string.last_average)
+                StatRange.DAY_AGO -> getString(R.string.last_average)
                 StatRange.ALL -> getString(R.string.total_average)
                 else -> error("no comparison label for comparison range: $comparisonRange")
             }

@@ -1,11 +1,10 @@
 package com.example.shottracker_ai.ui.common.chart
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.example.shottracker_ai.R
@@ -35,7 +34,12 @@ class LinearChart @JvmOverloads constructor(
 
     private val plugins = mutableListOf<LinearChartPlugin>()
 
-    var lineWidth: Float = 0f
+    fun addPlugins(plugin: LinearChartPlugin) {
+        plugins.add(plugin)
+        plugin.onCalculatePaths()
+    }
+
+    var lineWidth: Float = 1f
     var lineColor: Int = -1
         set(value) {
             field = value
@@ -46,7 +50,7 @@ class LinearChart @JvmOverloads constructor(
     init {
         context.withStyledAttributes(set = attrs, attrs = R.styleable.LinearChart) {
             lineColor = getColor(R.styleable.LinearChart_lineColor, ContextCompat.getColor(context, R.color.orange_500))
-            lineWidth = getDimensionPixelSize(R.styleable.LinearChart_lineWidth, 2).toFloat()
+            lineWidth = getDimensionPixelSize(R.styleable.LinearChart_lineWidth, 10).toFloat()
         }
     }
 
@@ -73,35 +77,49 @@ class LinearChart @JvmOverloads constructor(
 
     private var chartPaint = createChartPaint()
 
-    private val chartPath = Path()
+    val chartPoints = mutableListOf<PointF>()
+    val chartPath = Path()
 
     val maxChartHeight get() = height.toFloat() - paddingBottom - chartTopPoint
-    open val chartTopPoint get() = paddingTop.toFloat() + plugins.sumByDouble { it.requiredTopArea.toDouble() }.toFloat()
+    val chartTopPoint get() = paddingTop.toFloat() + plugins.sumByDouble { it.requiredTopArea.toDouble() }.toFloat()
 
     val segmentDistance get() = width.toFloat() / (normalizedChartData.size - 1)
 
-    fun chartY(segment: Int, maxHeight: Float = this.maxChartHeight) = normalizedChartData[segment].value * maxHeight
-
-
+    fun chartY(segment: Int, maxHeight: Float = this.maxChartHeight) = chartTopPoint + (normalizedChartData[segment].value * maxHeight)
 
     protected open fun calculatePaths() {
         when {
             normalizedChartData.size == 1 -> {
                 val maxHeight = this.maxChartHeight / 2
-                val oneDayDistance = this.segmentDistance
-                chartPath.reset()
 
-                val y = chartY(0, maxHeight)
-                chartPath.moveTo(0f, maxChartHeight)
-                chartPath.lineTo(normalizedChartData[0].value * oneDayDistance, y)
+                chartPoints.clear()
+                chartPoints.add(PointF(0F, maxHeight))
+                chartPoints.add(PointF(width.toFloat(), maxHeight))
+
+                loadChartPath()
             }
             normalizedChartData.isNotEmpty() -> {
                 val maxHeight = this.maxChartHeight
                 val oneDayDistance = this.segmentDistance
-                chartPath.reset()
-                chartPath.moveTo(0f, chartY(0))
-                (1 until normalizedChartData.size).forEach { segment -> chartPath.lineTo(segment * oneDayDistance, chartY(segment, maxHeight)) }
+
+                chartPoints.clear()
+                chartPoints.add(PointF(0F, chartY(0)))
+                (1 until normalizedChartData.size).forEach { segment ->
+                    chartPoints.add(PointF(segment * oneDayDistance, chartY(segment, maxHeight)))
+                }
+
+                loadChartPath()
             }
+        }
+
+        plugins.forEach { it.onCalculatePaths() }
+    }
+
+    private fun loadChartPath() {
+        chartPath.reset()
+        chartPoints.forEachIndexed { index, pointF ->
+            if (index == 0) chartPath.moveTo(pointF.x, pointF.y)
+            else chartPath.lineTo(pointF.x, pointF.y)
         }
     }
 

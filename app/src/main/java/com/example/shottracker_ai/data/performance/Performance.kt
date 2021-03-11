@@ -1,6 +1,7 @@
 package com.example.shottracker_ai.data.performance
 
 import androidx.room.*
+import com.example.shottracker_ai.ui.common.chart.ChartData
 import com.example.shottracker_ai.utilities.toLocalZonedDateTime
 import com.example.shottracker_ai.utilities.toUTCZonedDateTime
 import java.time.LocalDateTime

@@ -74,7 +74,7 @@ fun SectionRangeBinding.setUp(
         }
 
         //            Selector
-        selector.isEnabled = section.showIndicator
+        selector.visibility = if (section.showIndicator) View.VISIBLE else View.GONE
 
 //            Animate to selected range
         selectedLabelView(section.selectedRange)?.let { selectedRangeView ->
@@ -100,9 +100,11 @@ fun SectionRangeBinding.setUp(
 
             //                After text color
             rangeViews[section.selectedRange]?.forEach { view ->
-                when (view) {
-                    is TextView -> view.setTextColor(whiteColor)
-                    is ImageView -> view.imageTintList = ColorStateList.valueOf(whiteColor)
+                if (view.isEnabled) {
+                    when (view) {
+                        is TextView -> view.setTextColor(whiteColor)
+                        is ImageView -> view.imageTintList = ColorStateList.valueOf(whiteColor)
+                    }
                 }
             }
 

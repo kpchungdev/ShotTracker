@@ -22,4 +22,7 @@
     <string name="thirty">30</string>
     <string name="three_hundred_sixty_five">365</string>
 
+    <string name="best">Best</string>
+    <string name="total_field_goal">Total Field Goal</string>
+
 </resources>

@@ -9,11 +9,13 @@ import com.example.shottracker_ai.R
 
 class InitialLevelChartPlugin(override val chart: LinearChart) : LinearChartPlugin {
 
+    private val dashDistance = context.resources.getDimension(R.dimen.chart_line_dash_distance)
+
     private val levelLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = ContextCompat.getColor(context, R.color.gray_300)
         style = Paint.Style.STROKE
-        pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0F)
-        strokeWidth = 1F
+        pathEffect = DashPathEffect(floatArrayOf(dashDistance, dashDistance), 0F)
+        strokeWidth = context.resources.getDimension(R.dimen.chart_line_stroke)
     }
 
     private val levelLinePath = Path()
@@ -30,7 +32,7 @@ class InitialLevelChartPlugin(override val chart: LinearChart) : LinearChartPlug
         }
     }
 
-    override fun drawBeforeChart(canvas: Canvas) {
+    override fun drawAfterChart(canvas: Canvas) {
         canvas.drawPath(levelLinePath, levelLinePaint)
     }
 }

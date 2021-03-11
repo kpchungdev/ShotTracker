@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="top_level_chart_plugin_padding">80dp</dimen>
+    <dimen name="chart_line_stroke">2dp</dimen>
+    <dimen name="chart_line_dash_distance">5dp</dimen>
+</resources>

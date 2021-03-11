@@ -58,7 +58,7 @@ class HomeViewModel @Inject internal constructor(
         this.range.value = range
     }
 
-    val targetPerformances = performances.combineWithLatest(range) { performances, range ->
+    private val targetPerformances = performances.combineWithLatest(range) { performances, range ->
         performances.toRange(range)
     }
 
@@ -67,7 +67,7 @@ class HomeViewModel @Inject internal constructor(
             StatRange.ALL
         } else {
             when (range) {
-                StatRange.ALL -> StatRange.DAY
+                StatRange.ALL -> StatRange.DAY_AGO
                 else -> StatRange.ALL
             }
         }
@@ -116,26 +116,9 @@ class HomeViewModel @Inject internal constructor(
         )
     }
 
-    init {
-        launchBackground {
-            for (day in 1..45) {
-                val shotsMade = Random.nextInt(1, 12)
-                val shotAttempts = shotsMade + Random.nextInt(1, 8)
-
-                performanceRepository.savePerformance(
-                        shotsMade = shotsMade,
-                        shotAttempts = shotAttempts,
-                        duration = Random.nextInt(30, 50),
-                        createTime = LocalDateTime.now().plusDays(day.toLong())
-                )
-            }
-
-            Timber.d("size: ${performanceRepository.getPerformances().first().size}")
-        }
-    }
-
     fun clearPerformances() {
         launchBackground {
+            range.postValue(StatRange.ALL)
             performanceRepository.clearPerformances()
         }
     }

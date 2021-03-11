@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="section"
+            type="com.example.shottracker_ai.ui.home.performance.AverageFieldGoalChartSection" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/labelTotalFieldGoal"
+            style="@style/ShotTracker.TextAppearance.Primary.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_field_goal"
+            app:textColorRes="@{section.labelTotalFieldGoalColor}"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="38dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/topFieldGoal"
+            style="@style/ShotTracker.TextAppearance.Primary.Medium"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#979797"
+            android:text="@{section.topFieldGoal}"
+            android:visibility="@{section.showFieldGoal ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@+id/labelTotalFieldGoal"
+            app:layout_constraintStart_toStartOf="@+id/labelTotalFieldGoal"
+            tools:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/labelBest"
+            style="@style/ShotTracker.TextAppearance.Primary.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/best"
+            android:textColor="#979797"
+            android:layout_marginStart="2dp"
+            android:visibility="@{section.showFieldGoal ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/topFieldGoal"
+            app:layout_constraintStart_toEndOf="@+id/topFieldGoal"
+            tools:visibility="invisible"/>
+
+        <com.example.shottracker_ai.ui.common.chart.LinearChart
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
