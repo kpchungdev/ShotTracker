@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="imageRes"
+            type="int" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="subtitle"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="45dp"
+            android:src="@{imageRes}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/labelTitle"
+            tools:src="@drawable/zone_tutorial"
+            />
+
+        <TextView
+            android:id="@+id/labelTitle"
+            style="@style/ShotTracker.TextAppearance.Primary.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textSize="18sp"
+            android:text="@{title}"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/labelSubtitle"
+            app:layout_constraintEnd_toEndOf="@+id/labelSubtitle"
+            app:layout_constraintBottom_toTopOf="@+id/labelSubtitle"
+            tools:text="@string/walk_into_camera"/>
+
+        <TextView
+            android:id="@+id/labelSubtitle"
+            style="@style/ShotTracker.TextAppearance.Primary.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:textColor="@color/gray_500"
+            android:text="@{subtitle}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/enter_one_of_the_camera_zones_to_begin_the_camera_configuration_process"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

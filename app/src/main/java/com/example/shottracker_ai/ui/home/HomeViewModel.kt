@@ -116,7 +116,7 @@ class HomeViewModel @Inject internal constructor(
         )
     }
 
-    val needsTutorial = sharedPreferenceStorage.hasViewedTutorialLiveData
+    val needsTutorial = sharedPreferenceStorage.hasViewedTutorialLiveData.map { it == false }
 
 }
 

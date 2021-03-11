@@ -25,4 +25,12 @@
     <string name="best">Best</string>
     <string name="total_field_goal">Total Field Goal</string>
 
+    <string name="enter_one_of_the_camera_zones_to_begin_the_camera_configuration_process">Enter one of the camera zones to\nbegin the camera configuration\nprocess.</string>
+    <string name="walk_into_camera">Walk into Camera Zone</string>
+    <string name="find_the_hoop_with_your_camera">Find the Hoop with your Camera</string>
+    <string name="point_your_camera_to_the_hoop">Point your camera to the hoop.</string>
+    <string name="ready_to_practice">Ready to Practice</string>
+    <string name="this_button_will_light_up_ready_for_shot_tracking">This button will ight up, ready for\nshot tracking. Press this button to\nsave your results.</string>
+    <string name="action_continue">Continue</string>
+
 </resources>

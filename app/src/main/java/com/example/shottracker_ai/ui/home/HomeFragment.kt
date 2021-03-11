@@ -26,15 +26,15 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return HomeFragmentBinding.inflate(layoutInflater, container, false).also {
-            binding = it
-            binding.viewModel = viewModel
-            binding.lifecycleOwner = this
-        }.root
+        binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewModel.launchDestination.observe(viewLifecycleOwner) { destination ->
             when (destination) {
