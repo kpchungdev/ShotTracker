@@ -35,24 +35,42 @@ abstract class SharedPreferenceLiveData<T>(
 
 }
 
-class SharedPreferencesStringLiveData(private val prefs: SharedPreferences,
-                                      key: String,
-                                      defaultValue: String? = null
-): SharedPreferenceLiveData<String>(prefs, key, defaultValue) {
+class SharedPreferencesStringLiveData(
+    private val prefs: SharedPreferences,
+    key: String,
+    defaultValue: String? = null
+) : SharedPreferenceLiveData<String>(prefs, key, defaultValue) {
     override fun getValueFromPreferences(key: String?, defValue: String?): String? {
         return prefs.getString(key, defValue)
     }
 }
 
-fun SharedPreferences.asStringLiveData(key: String, defaultValue: String? = null) = SharedPreferencesStringLiveData(this, key, defaultValue)
+fun SharedPreferences.asStringLiveData(key: String, defaultValue: String? = null) =
+    SharedPreferencesStringLiveData(this, key, defaultValue)
 
-class SharedPreferencesUriLiveData(private val prefs: SharedPreferences,
-                                      key: String,
-                                      defaultValue: Uri? = null
-): SharedPreferenceLiveData<Uri>(prefs, key, defaultValue) {
+class SharedPreferencesUriLiveData(
+    private val prefs: SharedPreferences,
+    key: String,
+    defaultValue: Uri? = null
+) : SharedPreferenceLiveData<Uri>(prefs, key, defaultValue) {
     override fun getValueFromPreferences(key: String?, defValue: Uri?): Uri? {
         return prefs.getString(key, defValue?.toString())?.toUri()
     }
 }
 
-fun SharedPreferences.asUriLiveData(key: String, defaultValue: Uri? = null) = SharedPreferencesUriLiveData(this, key, defaultValue)
+fun SharedPreferences.asUriLiveData(key: String, defaultValue: Uri? = null) =
+    SharedPreferencesUriLiveData(this, key, defaultValue)
+
+
+class SharedPreferencesBooleanLiveData(
+    private val prefs: SharedPreferences,
+    key: String,
+    defaultValue: Boolean
+) : SharedPreferenceLiveData<Boolean>(prefs, key, defaultValue) {
+    override fun getValueFromPreferences(key: String?, defValue: Boolean?): Boolean? {
+        return prefs.getBoolean(key, defValue ?: false)
+    }
+}
+
+fun SharedPreferences.asBooleanLiveData(key: String, defaultValue: Boolean) =
+    SharedPreferencesBooleanLiveData(this, key, defaultValue)

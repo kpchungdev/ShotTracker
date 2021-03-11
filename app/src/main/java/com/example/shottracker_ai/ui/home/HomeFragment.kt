@@ -12,6 +12,7 @@ import com.example.shottracker_ai.ui.home.performance.setUp
 import com.example.shottracker_ai.ui.home.ranges.EventHandler
 import com.example.shottracker_ai.ui.home.ranges.setUp
 import com.example.shottracker_ai.ui.home.stats.StatRange
+import com.example.shottracker_ai.utilities.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,30 +26,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
-        binding.ranges.setUp(
-                fragment = this,
-                eventHandler = object : EventHandler {
-                    override fun changeRange(range: StatRange) {
-                        viewModel.changeRange(range)
-                    }
-                },
-                section = viewModel.rangeSection
-        )
-
-        binding.fieldGoalChart.setUp(
-            this,
-            viewModel.averageFieldGoalChartSection
-        )
-
-        binding.buttonPlay.setOnClickListener {
-            viewModel.clearPerformances()
-        }
-
-        return binding.root
+        return HomeFragmentBinding.inflate(layoutInflater, container, false).also {
+            binding = it
+            binding.viewModel = viewModel
+            binding.lifecycleOwner = this
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +42,38 @@ class HomeFragment : Fragment() {
                     val direction = HomeFragmentDirections.actionFirstScreenHomeFragmentToProfileFragment()
                     view.findNavController().navigate(direction)
                 }
+            }
+        }
+
+        binding.ranges.setUp(
+            fragment = this,
+            eventHandler = object : EventHandler {
+                override fun changeRange(range: StatRange) {
+                    viewModel.changeRange(range)
+                }
+            },
+            section = viewModel.rangeSection
+        )
+
+        binding.fieldGoalChart.setUp(
+            this,
+            viewModel.averageFieldGoalChartSection
+        )
+
+        binding.imageProfile.setOnClickListener {
+            val direction = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+            view.findNavController().navigate(direction)
+        }
+
+        binding.buttonPlay.setOnClickListener {
+            observeOnce(viewModel.needsTutorial) {
+                val direction = if (it) {
+                    HomeFragmentDirections.actionHomeFragmentToTutorialFragment()
+                } else {
+                    HomeFragmentDirections.actionHomeFragmentToPlayFragment()
+                }
+
+                view.findNavController().navigate(direction)
             }
         }
     }

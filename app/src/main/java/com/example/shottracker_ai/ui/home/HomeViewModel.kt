@@ -116,12 +116,7 @@ class HomeViewModel @Inject internal constructor(
         )
     }
 
-    fun clearPerformances() {
-        launchBackground {
-            range.postValue(StatRange.ALL)
-            performanceRepository.clearPerformances()
-        }
-    }
+    val needsTutorial = sharedPreferenceStorage.hasViewedTutorialLiveData
 
 }
 
